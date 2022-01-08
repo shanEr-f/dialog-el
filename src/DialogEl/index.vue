@@ -266,7 +266,7 @@ export default defineComponent({
       _data.borderStartX = e.clientX;
       _data.borderStartY = e.clientY;
       _data.isBorderDown = true;
-      // _data.isDown = false;
+      _data.isDown = false;
       _data.type = type;
 
       window.addEventListener("mousemove", evBorderMove);
