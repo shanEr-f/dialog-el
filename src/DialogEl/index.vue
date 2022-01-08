@@ -34,7 +34,7 @@
           v-for="item in borderDom"
           :key="item.type"
           :class="[item.class, !isZoom ? 'cursor' : '']"
-          @mousedown="evBoderDown($event, item.type)"
+          @mousedown="evBorderDown($event, item.type)"
         ></div>
       </div>
     </div>
@@ -44,7 +44,7 @@
 
 <script>
 import { computed, defineComponent, reactive, ref, toRefs, watch } from "vue";
-import dialogIcon from "./componets/dialogIcon.vue";
+import dialogIcon from "./components/dialogIcon.vue";
 export default defineComponent({
   components: {
     dialogIcon,
@@ -100,7 +100,7 @@ export default defineComponent({
   setup(props, { slots, emit }) {
     const _data = reactive({
       isDown: false,
-      isBoderDown: false,
+      isBorderDown: false,
       // 元素移动为位置
       clientX: 0,
       clientY: 0,
@@ -109,8 +109,8 @@ export default defineComponent({
       startClientY: 0,
 
       // 边框开始点击位置
-      boderStartX: 0,
-      boderStartY: 0,
+      borderStartX: 0,
+      borderStartY: 0,
 
       // 元素宽高
       width: 0,
@@ -258,33 +258,33 @@ export default defineComponent({
     };
 
     // 缩放和放大
-    const evBoderDown = (e, type) => {
+    const evBorderDown = (e, type) => {
       if (!isZoom.value) {
         return false;
       }
 
-      _data.boderStartX = e.clientX;
-      _data.boderStartY = e.clientY;
-      _data.isBoderDown = true;
-      _data.isDown = false;
+      _data.borderStartX = e.clientX;
+      _data.borderStartY = e.clientY;
+      _data.isBorderDown = true;
+      // _data.isDown = false;
       _data.type = type;
 
-      window.addEventListener("mousemove", evBoderMove);
+      window.addEventListener("mousemove", evBorderMove);
     };
 
     // 缩放和放大-边框移动
-    const evBoderMove = (e) => {
-      if (!_data.isBoderDown) {
+    const evBorderMove = (e) => {
+      if (!_data.isBorderDown) {
         return false;
       }
 
       const _type = _data.type;
 
-      const _clientX = e.clientX - _data.boderStartX;
-      const _clientY = e.clientY - _data.boderStartY;
+      const _clientX = e.clientX - _data.borderStartX;
+      const _clientY = e.clientY - _data.borderStartY;
 
-      _data.boderStartX = e.clientX;
-      _data.boderStartY = e.clientY;
+      _data.borderStartX = e.clientX;
+      _data.borderStartY = e.clientY;
       _data.isDown = false;
 
       if (dialogIcon.value == 3) {
@@ -337,8 +337,8 @@ export default defineComponent({
     // 鼠标抬起
     window.addEventListener("mouseup", () => {
       _data.isDown = false;
-      _data.isBoderDown = false;
-      window.removeEventListener("mousemove", evBoderMove);
+      _data.isBorderDown = false;
+      window.removeEventListener("mousemove", evBorderMove);
       window.removeEventListener("mousemove", evMouseMove);
     });
 
@@ -375,8 +375,8 @@ export default defineComponent({
       evMouseDown,
       evMouseMove,
       evClose,
-      evBoderDown,
-      evBoderMove,
+      evBorderDown,
+      evBorderMove,
       evFullScreen,
 
       // computed

@@ -10,7 +10,6 @@
     @evOpen="open"
     @evFull="full"
     @evNormal="normal"
-    @evZoom="move"
   >
     <div class="box">
       <button @click="evMask">打开/关闭遮罩层</button>
@@ -44,11 +43,6 @@ export default {
       console.log("我打开了", data);
     };
 
-    const whStyle = reactive({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-
     const full = (data) => {
       isMove.value = false;
       isZoom.value = false;
@@ -72,7 +66,6 @@ export default {
       evClick,
       evMask,
       open,
-      whStyle,
       full,
       normal,
       move,
