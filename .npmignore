@@ -1,0 +1,7 @@
+.*
+*.md
+*.yml
+src/
+node_modules/
+public/
+vue.config.js
